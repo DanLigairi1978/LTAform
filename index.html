@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LT Base Letter & Permit Generator | Nabalebale Elite Suite</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a1a1a;
+            --accent: #0066cc;
+            --border: #e0e0e0;
+            --text: #333;
+            --bg: #f9f9f9;
+            --success: #28a745;
+            --warning: #ffc107;
+            --print-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            background: var(--primary);
+            color: white;
+            padding: 30px 20px;
+            border-radius: 4px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+
+        /* Tab Navigation */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .tab-button {
+            padding: 12px 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .tab-button.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        .tab-button:hover {
+            color: var(--accent);
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Form Sections */
+        .form-section {
+            background: white;
+            padding: 25px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .form-section h2 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent);
+            color: var(--primary);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-row.full {
+            grid-template-columns: 1fr;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="email"],
+        input[type="number"],
+        textarea,
+        select {
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="date"]:focus,
+        input[type="email"]:focus,
+        input[type="number"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        /* Buttons */
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 3px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0052a3;
+            box-shadow: 0 2px 8px rgba(0, 102, 204, 0.3);
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+        }
+
+        /* Checklists */
+        .checklist {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .checklist h3 {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 10px;
+            margin-bottom: 8px;
+            background: #f9f9f9;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .checklist-item:hover {
+            background: #f0f0f0;
+        }
+
+        .checklist-item input[type="checkbox"] {
+            margin-top: 3px;
+            cursor: pointer;
+        }
+
+        .checklist-item label {
+            margin: 0;
+            font-weight: 400;
+            text-transform: none;
+            font-size: 14px;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        /* Document Preview — MS Word default margins (1 inch = 96px screen) */
+        .document-preview {
+            background: white;
+            border: 1px solid var(--border);
+            /* 8.5" × 11" at 96dpi = 816 × 1056px; inner content width ~624px */
+            width: 816px;
+            min-height: 1056px;
+            margin: 0 auto 40px auto;
+            padding: 96px;               /* 1-inch margins all sides */
+            font-family: 'Calibri', 'Segoe UI', sans-serif;
+            font-size: 11pt;
+            line-height: 1.5;
+            color: #000;
+            page-break-after: always;
+            break-after: page;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .document-preview h3 {
+            font-size: 13pt;
+            margin-bottom: 18px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .document-preview p {
+            margin-bottom: 12px;
+            text-align: justify;
+        }
+
+        .document-preview ul {
+            margin: 12px 0 12px 28px;
+        }
+
+        .document-preview ul li {
+            margin-bottom: 8px;
+        }
+
+        /* Letterhead: centered, max 280px wide */
+        .letterhead-img {
+            display: block;
+            max-width: 280px;
+            width: 100%;
+            height: auto;
+            margin: 0 auto 16px auto;
+        }
+
+        /* Letterhead hidden until letters generated */
+        .letterhead-img.hidden-until-generated,
+        .signature-img.hidden-until-generated {
+            display: none;
+        }
+
+        .signature-line {
+            margin-top: 30px;
+            border-top: 1px solid #000;
+            width: 150px;
+            padding-top: 5px;
+            font-size: 10pt;
+        }
+
+        /* Signature block: left-aligned, proper breathing room */
+        .signature-block {
+            margin-top: 48px;
+        }
+
+        /* Signature image: max 100px wide */
+        .signature-img {
+            display: block;
+            max-width: 100px;
+            height: auto;
+            margin-bottom: 6px;
+        }
+
+        /* LTA Form Replica */
+        .lta-form {
+            background: white;
+            padding: 30px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .lta-form h4 {
+            font-size: 13px;
+            font-weight: 700;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .lta-form table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+            font-size: 12px;
+        }
+
+        .lta-form td {
+            border: 1px solid #999;
+            padding: 8px;
+        }
+
+        .lta-form input[type="text"],
+        .lta-form input[type="date"],
+        .lta-form input[type="number"],
+        .lta-form textarea {
+            width: 100%;
+            padding: 4px;
+            border: none;
+            font-size: 12px;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* Alerts */
+        .alert {
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .alert-warning {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            color: #856404;
+        }
+
+        .alert-info {
+            background: #d1ecf1;
+            border: 1px solid #0c5460;
+            color: #0c5460;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            border: 1px solid #28a745;
+            color: #155724;
+        }
+
+        /* Utility */
+        .hint {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        .income-warning {
+            display: none;
+        }
+
+        .income-warning.show {
+            display: block;
+        }
+
+        /* Print Styles */
+        @media print {
+            .header, .tabs, .tab-button, .button-group,
+            .alert-info, .hint, .alert-success {
+                display: none !important;
+            }
+
+            body {
+                background: white;
+                margin: 0;
+                padding: 0;
+            }
+
+            .container {
+                max-width: 100%;
+                padding: 0;
+                margin: 0;
+            }
+
+            /* Each letter = its own printed page */
+            .document-preview {
+                width: 100%;
+                min-height: auto;
+                border: none;
+                box-shadow: none;
+                /* Use native paper margins via @page instead */
+                padding: 0;
+                margin: 0;
+                page-break-after: always;
+                break-after: page;
+            }
+
+            .lta-form {
+                page-break-after: always;
+                break-after: page;
+                border: none;
+                padding: 0;
+                margin: 0;
+                box-shadow: none;
+            }
+
+            .tab-content {
+                display: block !important;
+            }
+
+            /* Only print the letters tab content, hide others */
+            #data, #checklists, #form {
+                display: none !important;
+            }
+        }
+
+        /* Print page setup: 8.5" × 11", 1-inch margins */
+        @page {
+            size: letter portrait;
+            margin: 1in;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 18px;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab-button {
+                text-align: left;
+                border-bottom: 3px solid var(--border);
+            }
+
+            .tab-button.active {
+                border-bottom-color: var(--accent);
+            }
+
+            button {
+                flex: 1;
+            }
+
+            .document-preview {
+                padding: 20px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>LT Base Letter & Permit Generator</h1>
+            <p>Nabalebale Village Elite Suite | Complete taxi permit application package</p>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="tabs">
+            <button class="tab-button active" onclick="switchTab('data')">Applicant Data</button>
+            <button class="tab-button" onclick="switchTab('checklists')">Checklists</button>
+            <button class="tab-button" onclick="switchTab('letters')">Support Letters</button>
+            <button class="tab-button" onclick="switchTab('form')">LTA Form</button>
+        </div>
+
+        <!-- Tab 1: Applicant Data -->
+        <div id="data" class="tab-content active">
+            <div class="form-section">
+                <h2>Applicant & Letter Information</h2>
+                
+                <div class="form-row full">
+                    <div class="form-group">
+                        <label for="appDate">Date of Application</label>
+                        <input type="date" id="appDate" placeholder="YYYY-MM-DD">
+                        <span class="hint">Default: Today's date. Change to match your application.</span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="driverFullName">Driver's Full Name</label>
+                        <input type="text" id="driverFullName" placeholder="e.g., Leone Tokonibau Nasila">
+                    </div>
+                    <div class="form-group">
+                        <label for="driverLastName">Driver's Last Name</label>
+                        <input type="text" id="driverLastName" placeholder="e.g., Nasila">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="vehicleMakeModel">Vehicle Make & Model</label>
+                        <input type="text" id="vehicleMakeModel" placeholder="e.g., Toyota Hiace">
+                    </div>
+                    <div class="form-group">
+                        <label for="baseLocation">Proposed Base Location</label>
+                        <input type="text" id="baseLocation" placeholder="e.g., Nabalebale Market Square">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="mataqaliName">Mataqali Name (Land Owner)</label>
+                        <input type="text" id="mataqaliName" placeholder="e.g., Narikoso">
+                    </div>
+                    <div class="form-group">
+                        <label for="chiefName">Turaga ni Mataqali (Chief Name)</label>
+                        <input type="text" id="chiefName" placeholder="Full name of the chief">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="chiefPhone">Chief's Phone Number</label>
+                        <input type="text" id="chiefPhone" placeholder="e.g., +679 8123456">
+                    </div>
+                    <div class="form-group">
+                        <label for="tkName">Turaga ni Koro (Village Headman)</label>
+                        <input type="text" id="tkName" placeholder="Full name of village headman">
+                    </div>
+                </div>
+
+                <div class="form-row full">
+                    <div class="form-group">
+                        <label for="meetingDate">Village Meeting Date</label>
+                        <input type="date" id="meetingDate" placeholder="YYYY-MM-DD">
+                        <span class="hint">Date when the village meeting convened to approve the application.</span>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn-primary" onclick="autofillExampleData()">Load Example Data</button>
+                    <button class="btn-secondary" onclick="clearAllData()">Clear All</button>
+                </div>
+            </div>
+
+            <div class="alert alert-info">
+                <strong>Info:</strong> All fields populate automatically in the Support Letters and LTA Form tabs. Edit this section to update all documents at once.
+            </div>
+        </div>
+
+        <!-- Tab 2: Checklists -->
+        <div id="checklists" class="tab-content">
+            <div class="form-section">
+                <h2>Pre-Application Checklists</h2>
+            </div>
+
+            <!-- Checklist 1: Application Packet -->
+            <div class="checklist">
+                <h3>✓ Checklist 1: Application Packet Requirements</h3>
+                <p style="font-size: 12px; margin-bottom: 15px; color: #666;">
+                    Ensure <strong>all items</strong> are completed before lodging your application. The $67.50 fee is paid only when all requirements are met.
+                </p>
+                <div class="checklist-item">
+                    <input type="checkbox" id="req1">
+                    <label for="req1">Duly completed Application Form</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="req2">
+                    <label for="req2">$67.50 fee (paid only when all requirements met)</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="req3">
+                    <label for="req3">Police Clearance Receipt (issued within 3 months of lodgement)</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="req4">
+                    <label for="req4">Medical Report</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="req5">
+                    <label for="req5">Justification of needs of people of the area</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="req6">
+                    <label for="req6">Driver License (original or certified copy)</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="req7">
+                    <label for="req7">Original Birth Certificate or Certified True Copy (proof of 21+ years)</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="req8">
+                    <label for="req8">One (1) recent identical passport-size photo</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="req9">
+                    <label for="req9">Voter ID, WAF & EFL Bill (proof of address) OR Statutory Declaration</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="req10">
+                    <label for="req10">Pay slip or stamped evidence of annual household income ≤ $30,000</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="req11">
+                    <label for="req11">Valid TIN Card or TIN Letter</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="req12">
+                    <label for="req12">Valid Tax Compliance Letter</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="req13">
+                    <label for="req13">Certified copy of Passbook or last 3 months bank statements</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="req14">
+                    <label for="req14">Proof of Minimum Bank Balance ($1050 if owning vehicle; $6050 if purchasing)</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="req15">
+                    <label for="req15">Statement of Position (personal assets & liabilities as of application date)</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="req16">
+                    <label for="req16">Base Letter Consent: Roko Tui (+ village meeting minutes) OR ITLTB OR Director Lands OR FRA</label>
+                </div>
+            </div>
+
+            <!-- Checklist 2: Base Setup -->
+            <div class="checklist">
+                <h3>✓ Checklist 2: Base Setup & Infrastructure Standards</h3>
+                <p style="font-size: 12px; margin-bottom: 15px; color: #666;">
+                    <strong>Note:</strong> A 90 business days Provisional Approval will be issued for the taxi stand to complete its construction and setup.
+                </p>
+                <div class="checklist-item">
+                    <input type="checkbox" id="base1">
+                    <label for="base1">Clean and well-maintained office setup with minimum 12 m² or existing LTA-approved infrastructure</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="base2">
+                    <label for="base2">Adequate ventilation and lighting</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="base3">
+                    <label for="base3">Table and chairs designated for telephone and RT (radio transmitter) operator</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="base4">
+                    <label for="base4">Drivers resting and waiting area (tea room recommended)</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="base5">
+                    <label for="base5">Spacious and publicly accessible customer waiting area with bench</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="base6">
+                    <label for="base6">Clean and well-maintained toilet facilities</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="base7">
+                    <label for="base7">Driver record and taxi register of shift rosters (manual or computerized)</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="base8">
+                    <label for="base8">Properly graveled, marked, and reserved parking areas with clear entry/exit points</label>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn-secondary" onclick="printTab('checklists')">Print Checklists</button>
+            </div>
+        </div>
+
+        <!-- Tab 3: Support Letters -->
+        <div id="letters" class="tab-content">
+            <div class="alert alert-info">
+                <strong>Auto-populated from Applicant Data:</strong> All fields below are populated from the data entered in the "Applicant Data" tab. Press Print to generate a continuous PDF with all three letters.
+            </div>
+
+            <!-- Letter A: Mataqali Support -->
+            <div class="document-preview">
+                <img src="images/Nabalebale letterhead.png" class="letterhead-img hidden-until-generated" id="letterheadImg" alt="Nabalebale Village Letterhead">
+                
+                <p style="text-align: center; font-weight: 600; margin-bottom: 10px;">P.A NABALEBALE | NABALEBALE VILLAGE, WAILEVU EAST | CAKAUDROVE</p>
+                
+                <p id="letterDate1" style="text-align: right; margin-bottom: 30px;"></p>
+
+                <p><strong>To Whom It May Concern,</strong></p>
+
+                <p>Please accept this letter of support from myself, <strong id="letter1Chief"></strong>, Turaga ni Mataqali <strong id="letter1Mataqali"></strong> in the village of Nabalebale, for the following:</p>
+
+                <p>The application for issuance of LT registration for the fully licensed driver <strong id="letter1DriverFull"></strong>. The authorization and support for the use of the <strong id="letter1BaseLocation"></strong>, which sits on Mataqali <strong id="letter1Mataqali2"></strong> land, as a designated rural taxi base.</p>
+
+                <p><strong id="letter1DriverLast"></strong> is a bona fide member of Nabalebale Village and of the Mataqali <strong id="letter1Mataqali3"></strong>, of which I am the reigning chief. I fully support his efforts in providing structured transportation operations as a business to cater for the following:</p>
+
+                <ul style="margin: 15px 0 15px 25px;">
+                    <li style="margin-bottom: 10px;">Emergency cases where ambulances are unavailable – a problem that has been prevalent in recent years.</li>
+                    <li style="margin-bottom: 10px;">Courier and passenger services for those needing access to Wailevu West routes after arriving from Viti Levu late at night or in the early hours of the morning, when transport options are scarce.</li>
+                </ul>
+
+                <p><strong id="letter1DriverLast2"></strong> has already begun providing such services informally, but now seeks to operate under proper LT registration to avoid falling afoul of the law and the Land Transport Authority. With his <strong id="letter1Vehicle"></strong>, he is well positioned to provide reliable and safe transportation services for our community.</p>
+
+                <p>The proposed base at the <strong id="letter1BaseLocation2"></strong> will serve as a central hub for his operations. Its location on Mataqali <strong id="letter1Mataqali4"></strong> land, near the Nabalebale Nursing Station, makes it well suited for both passenger and courier services. I firmly believe that the issuance of LT registration for <strong id="letter1DriverLast3"></strong> and the establishment of this rural taxi base will deliver innovative transport solutions for Wailevu East and Wailevu West, benefiting the wider community.</p>
+
+                <p>Please accept this letter of support, and feel free to contact me on <strong id="letter1Phone"></strong> should you have any queries. We trust this serves as sufficient endorsement for the above initiative.</p>
+
+                <p style="margin-top: 30px;">Vinaka vakalevu.</p>
+
+                <p style="margin-top: 20px;">Respectfully yours,</p>
+
+                <img src="images/TM sign.png" class="signature-img hidden-until-generated" id="tmSign" alt="TM Signature">
+                
+                <p style="margin-top: 5px;"><strong id="letter1ChiefSig"></strong></p>
+                <p>Turaga ni Mataqali <strong id="letter1MataqaliSig"></strong></p>
+                <p>Nabalebale Village.</p>
+            </div>
+
+            <!-- Letter B: TK to Roko Tui -->
+            <div class="document-preview">
+                <img src="images/Nabalebale letterhead.png" class="letterhead-img hidden-until-generated" id="letterheadImg2" alt="Nabalebale Village Letterhead">
+                
+                <p style="text-align: center; font-weight: 600; margin-bottom: 10px;">P.A NABALEBALE | NABALEBALE VILLAGE, WAILEVU EAST | CAKAUDROVE</p>
+                
+                <p id="letterDate2" style="text-align: right; margin-bottom: 30px;"></p>
+
+                <p><strong>To: The Roko Tui Cakaudrove</strong><br>
+                Cakaudrove Provincial Office<br>
+                Yaroi, Savusavu.</p>
+
+                <p style="margin-top: 20px;"><strong>Subject: Support for <span id="letter2DriverFull"></span> – LT Taxi Permit Application and Rural Taxi Base.</strong></p>
+
+                <p style="margin-top: 20px;"><strong>Dear Sir,</strong></p>
+
+                <p>I, <strong id="letter2TK"></strong>, Turaga ni Koro (Headman) of Nabalebale Village, wish to formally convey our community's support for <strong id="letter2DriverFull2"></strong> in his application for a Land Transport Taxi Permit.</p>
+
+                <p>On <strong id="letter2MeetingDate"></strong>, I convened a meeting with <strong id="letter2DriverLast"></strong> and members of the Nabalebale community. Those in attendance showed their collective support of the participants for the establishment of a rural taxi base at the <strong id="letter2BaseLocation"></strong>.</p>
+
+                <p>This endorsement reflects the united voice of our village. <strong id="letter2DriverLast2"></strong>'s initiative will provide reliable transport services for our people, improving access to schools, health facilities, and essential services. The use of the <strong id="letter2BaseLocation2"></strong> as a taxi base was agreed upon as the most suitable and convenient location for this purpose.</p>
+
+                <p>On behalf of Nabalebale Village, I respectfully recommend that the Provincial Office recognize and support <strong id="letter2DriverLast3"></strong>'s application for both the taxi permit and the establishment of the rural taxi base.</p>
+
+                <p style="margin-top: 20px;">Thank you for your consideration.</p>
+
+                <p style="margin-top: 20px;">Yours faithfully,</p>
+
+                <img src="images/Don sign.png" class="signature-img hidden-until-generated" id="donSign" alt="Don Signature">
+                
+                <p style="margin-top: 5px;"><strong id="letter2TKSig"></strong></p>
+                <p>Turaga ni Koro – Nabalebale.</p>
+            </div>
+
+            <!-- Letter C: TK to LTA -->
+            <div class="document-preview">
+                <img src="images/Nabalebale letterhead.png" class="letterhead-img hidden-until-generated" id="letterheadImg3" alt="Nabalebale Village Letterhead">
+                
+                <p style="text-align: center; font-weight: 600; margin-bottom: 10px;">P.A NABALEBALE | NABALEBALE VILLAGE, WAILEVU EAST | CAKAUDROVE</p>
+                
+                <p id="letterDate3" style="text-align: right; margin-bottom: 30px;"></p>
+
+                <p><strong>To: Land Transport Authority</strong><br>
+                Suva, Fiji.</p>
+
+                <p style="margin-top: 20px;"><strong>Subject: Endorsement for <span id="letter3DriverFull"></span>.</strong></p>
+
+                <p style="margin-top: 20px;"><strong>Dear Sir/Madam,</strong></p>
+
+                <p>As Turaga ni Koro of Nabalebale Village, I wish to confirm our full support for <strong id="letter3DriverFull2"></strong> in his application for a taxi permit. <strong id="letter3DriverLast"></strong> is a responsible and trusted member of our community, and his service will greatly assist our people with transport to schools, health centers, and other essential needs.</p>
+
+                <p>We also endorse his request to use the <strong id="letter3BaseLocation"></strong> as his rural taxi base. This location is central, safe, and convenient for our villagers.</p>
+
+                <p>On behalf of Nabalebale Village, I recommend approval of his application.</p>
+
+                <p style="margin-top: 20px;">Yours sincerely,</p>
+
+                <img src="images/Don sign.png" class="signature-img hidden-until-generated" id="donSign2" alt="Don Signature">
+                
+                <p style="margin-top: 5px;"><strong id="letter3TKSig"></strong></p>
+                <p>Turaga ni Koro – Nabalebale.</p>
+            </div>
+
+            <div class="button-group">
+                <button class="btn-primary" onclick="generateLetters()">Update Letters with Data</button>
+                <button class="btn-success" onclick="window.print()">Print All Letters (PDF)</button>
+            </div>
+        </div>
+
+        <!-- Tab 4: LTA Form -->
+        <div id="form" class="tab-content">
+            <div class="alert alert-info">
+                <strong>LTA New Taxi Permit Application Form:</strong> Complete replica of official LTA form with 5 sections. Fields populate from Applicant Data tab. Print this along with support letters for complete application package.
+            </div>
+
+            <div class="lta-form">
+                <h4>SECTION A: APPLICANT DETAILS</h4>
+                
+                <table style="margin-bottom: 15px;">
+                    <tr>
+                        <td style="width: 20%; font-weight: 600;">File No:</td>
+                        <td style="width: 30%;"><input type="text" id="fileNo"></td>
+                        <td style="width: 20%; font-weight: 600;">Driver Licence No:</td>
+                        <td style="width: 30%;"><input type="text" id="dlNo"></td>
+                    </tr>
+                </table>
+
+                <table style="margin-bottom: 15px;">
+                    <tr>
+                        <td style="font-weight: 600; padding: 8px;">APPLICANT'S NAME</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Surname<br><input type="text" id="lta_surname">
+                            &nbsp; Middle Name<br><input type="text" id="lta_middlename">
+                            &nbsp; First Name<br><input type="text" id="lta_firstname">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Father's Name<br><input type="text" id="lta_fathersname"></td>
+                    </tr>
+                </table>
+
+                <table style="margin-bottom: 15px;">
+                    <tr>
+                        <td style="font-weight: 600; padding: 8px;">ADDRESS</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 50%; font-weight: 600;">Business Address<br><input type="text" id="lta_businessaddr" style="height: 40px;"></td>
+                        <td style="width: 50%; font-weight: 600;">Residential Address<br><input type="text" id="lta_residaddr" style="height: 40px;"></td>
+                    </tr>
+                </table>
+
+                <table style="margin-bottom: 15px;">
+                    <tr>
+                        <td style="width: 33%;">Phone No<br><input type="text" id="lta_phone"></td>
+                        <td style="width: 33%;">E-mail<br><input type="text" id="lta_email"></td>
+                        <td style="width: 34%;">Occupation<br><input type="text" id="lta_occupation"></td>
+                    </tr>
+                </table>
+
+                <table style="margin-bottom: 15px;">
+                    <tr>
+                        <td>Date of Birth<br><input type="date" id="lta_dob"></td>
+                    </tr>
+                </table>
+
+                <table style="margin-bottom: 15px;">
+                    <tr>
+                        <td style="width: 50%;">Marital Status<br><input type="text" id="lta_maritalstatus"></td>
+                        <td style="width: 50%;">Number of Dependents<br><input type="text" id="lta_dependents"></td>
+                    </tr>
+                </table>
+
+                <table style="margin-bottom: 15px;">
+                    <tr>
+                        <td style="font-weight: 600; padding: 8px;">DEPENDENTS (Name and Age)</td>
+                    </tr>
+                    <tr>
+                        <td><textarea id="lta_dependentsinfo" style="width: 100%; height: 60px;"></textarea></td>
+                    </tr>
+                </table>
+
+                <table style="margin-bottom: 15px;">
+                    <tr>
+                        <td style="width: 50%;">Residential Status<br><input type="text" id="lta_residstatus"></td>
+                        <td style="width: 50%;">Fiji Citizen (YES/NO)<br><input type="text" id="lta_citizen"></td>
+                    </tr>
+                </table>
+
+                <table style="margin-bottom: 20px;">
+                    <tr>
+                        <td style="font-weight: 600; padding: 8px;">REFEREES AND ADDRESSES</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 50%; font-weight: 600;">Personal<br><textarea id="lta_refpersonal" style="width: 100%; height: 50px;"></textarea></td>
+                        <td style="width: 50%; font-weight: 600;">Professional<br><textarea id="lta_refprof" style="width: 100%; height: 50px;"></textarea></td>
+                    </tr>
+                </table>
+
+                <table style="margin-bottom: 20px;">
+                    <tr>
+                        <td style="font-weight: 600; padding: 8px;">NEXT OF KIN</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Name: <input type="text" id="lta_nok_name" style="width: 30%;">
+                            Relationship: <input type="text" id="lta_nok_rel" style="width: 25%;">
+                            Phone: <input type="text" id="lta_nok_phone" style="width: 25%;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Address: <input type="text" id="lta_nok_addr" style="width: 70%;"></td>
+                    </tr>
+                </table>
+
+                <h4 style="margin-top: 40px;">SECTION B: FINANCIAL DETAILS</h4>
+
+                <table style="margin-bottom: 15px;">
+                    <tr>
+                        <td style="width: 25%;">Bank<br><input type="text" id="lta_bank"></td>
+                        <td style="width: 25%;">Branch<br><input type="text" id="lta_branch"></td>
+                        <td style="width: 25%;">Account Number<br><input type="text" id="lta_account"></td>
+                        <td style="width: 25%;">Account Style<br><input type="text" id="lta_accountstyle"></td>
+                    </tr>
+                </table>
+
+                <div class="alert alert-warning" id="incomeAlert">
+                    <strong>⚠ Income Threshold Warning:</strong> Annual household income must be $30,000 or less. If you exceed this amount, your application will not be considered.
+                </div>
+
+                <table style="margin-bottom: 15px;">
+                    <tr>
+                        <td>Annual Household Income (incl. all sources) <br><input type="number" id="lta_income" onchange="checkIncome()" placeholder="Must be ≤ $30,000"></td>
+                    </tr>
+                </table>
+
+                <p style="font-size: 12px; margin: 15px 0; color: #666;">
+                    <strong>Note:</strong> Certified true copy of Passbook or last three months bank statements is to be attached together with the application form.
+                </p>
+
+                <p style="font-size: 12px; margin: 15px 0; color: #666;">
+                    <strong>Bank Balance Requirements:</strong> Minimum $1,050.00 if already owning a vehicle. Minimum $6,050.00 if purchasing a vehicle upon approval.
+                </p>
+
+                <h4 style="margin-top: 30px;">SECTION C: VEHICLE PARTICULARS</h4>
+
+                <table style="margin-bottom: 15px;">
+                    <tr>
+                        <td style="width: 50%;">Do you own any vehicle(s)? (YES/NO)<br><input type="text" id="lta_ownvehicle"></td>
+                        <td style="width: 50%;">If YES, Registration Number:<br><input type="text" id="lta_currvenreg"></td>
+                    </tr>
+                </table>
+
+                <table style="margin-bottom: 15px;">
+                    <tr>
+                        <td style="width: 50%;">How many currently used as PSV?<br><input type="text" id="lta_psvcount"></td>
+                        <td style="width: 50%;">Use one of above vehicles? (YES/NO)<br><input type="text" id="lta_useexisting"></td>
+                    </tr>
+                </table>
+
+                <p style="font-size: 12px; margin: 15px 0; color: #c41e3a; font-weight: 600;">
+                    ★ NOTE: The vehicle to be used for this permit should be currently registered as PRIVATE.
+                </p>
+
+                <table style="margin-bottom: 20px;">
+                    <tr>
+                        <td style="font-weight: 600; padding: 8px; background: #f0f0f0;">PARTICULARS OF VEHICLE TO BE USED ON THIS PERMIT</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 33%;">Registration Number<br><input type="text" id="lta_newvenreg"></td>
+                                    <td style="width: 33%;">Make<br><input type="text" id="lta_make"></td>
+                                    <td style="width: 34%;">Model<br><input type="text" id="lta_model"></td>
+                                </tr>
+                                <tr>
+                                    <td>Year of Manufacture<br><input type="text" id="lta_year"></td>
+                                    <td>Engine Number<br><input type="text" id="lta_engine"></td>
+                                    <td>Engine Capacity<br><input type="text" id="lta_capacity"></td>
+                                </tr>
+                                <tr>
+                                    <td>Body Type<br><input type="text" id="lta_bodytype"></td>
+                                    <td>Fuel Type<br><input type="text" id="lta_fueltype"></td>
+                                    <td>Transmission Type<br><input type="text" id="lta_transmission"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">Air Conditioning Unit (YES/NO)<br><input type="text" id="lta_ac"></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+
+                <h4 style="margin-top: 30px;">SECTION C (CONT.)</h4>
+
+                <table style="margin-bottom: 15px;">
+                    <tr>
+                        <td style="font-weight: 600; padding: 8px;">STAND LETTERS TO BE ATTACHED</td>
+                    </tr>
+                    <tr>
+                        <td>PSV Reg. 3:5. Stand letter from an appropriate council or rural local authority must be produced.<br><textarea id="lta_standletter" style="width: 100%; height: 50px;"></textarea></td>
+                    </tr>
+                </table>
+
+                <table style="margin-bottom: 15px;">
+                    <tr>
+                        <td>Details of all current permits/license approved from LTA in applicant's name:<br><textarea id="lta_permits" style="width: 100%; height: 50px;"></textarea></td>
+                    </tr>
+                </table>
+
+                <table style="margin-bottom: 15px;">
+                    <tr>
+                        <td style="font-weight: 600; padding: 8px;">POLICE REPORT (to be attached)</td>
+                    </tr>
+                    <tr>
+                        <td><textarea id="lta_police" style="width: 100%; height: 50px;"></textarea></td>
+                    </tr>
+                </table>
+
+                <table style="margin-bottom: 15px;">
+                    <tr>
+                        <td style="font-weight: 600; padding: 8px;">MEDICAL REPORT (to be attached)</td>
+                    </tr>
+                    <tr>
+                        <td><textarea id="lta_medical" style="width: 100%; height: 50px;"></textarea></td>
+                    </tr>
+                </table>
+
+                <table style="margin-bottom: 20px;">
+                    <tr>
+                        <td style="font-weight: 600; padding: 8px;">JUSTIFICATION OF THE NEEDS OF PEOPLE OF THE AREA</td>
+                    </tr>
+                    <tr>
+                        <td><textarea id="lta_justification" style="width: 100%; height: 80px;"></textarea></td>
+                    </tr>
+                </table>
+
+                <p style="font-size: 12px; margin: 15px 0; color: #666;">
+                    <strong>Note:</strong> Quarterly reports of records to be submitted to the Authority in line with Public Service Vehicle Regulation 15: 1-6.
+                </p>
+
+                <p style="font-size: 12px; margin: 15px 0; color: #666;">
+                    <strong>Important:</strong> A decision may be given solely on the information provided in this application and attachments. Applicant is advised accordingly that in his/her own interest he/she should give all available information in support of this application.
+                </p>
+
+                <h4 style="margin-top: 30px;">DECLARATION</h4>
+
+                <p style="margin: 20px 0;">I, <strong id="lta_declname"></strong> s/o <strong id="lta_declfather"></strong> whose signature appears below declare that the particulars given in this application and in the attachments are true and correct.</p>
+
+                <table style="margin-bottom: 20px;">
+                    <tr>
+                        <td style="width: 50%;">Dated this _____ of 20_____</td>
+                        <td style="width: 50%;">Signature: _______________________<br>[Applicant/Manager/Director and Common seal for Limited Liability Company]</td>
+                    </tr>
+                </table>
+
+                <p style="font-size: 12px; margin: 15px 0; color: #666;">
+                    <strong>Note:</strong> The application form must be completed and must be accompanied by the fees of $67.50
+                </p>
+
+                <h4 style="margin-top: 40px;">SECTION D (FOR OFFICE USE ONLY)</h4>
+
+                <table style="margin-bottom: 20px;">
+                    <tr>
+                        <td style="font-weight: 600; padding: 8px;">1. Checklist completed:</td>
+                        <td><input type="text" id="lta_checklist" style="width: 50px;"> (YES/NO)</td>
+                        <td style="font-weight: 600;">Remarks: <input type="text" id="lta_checklist_remarks" style="width: 100%;"></td>
+                    </tr>
+                </table>
+
+                <table style="margin-bottom: 20px;">
+                    <tr>
+                        <td style="font-weight: 600; padding: 8px;">2. Interview:</td>
+                        <td><input type="text" id="lta_interview" style="width: 50px;"> (YES/NO)</td>
+                        <td style="font-weight: 600;">Remarks: <input type="text" id="lta_interview_remarks" style="width: 100%;"></td>
+                    </tr>
+                </table>
+
+                <table style="margin-bottom: 20px;">
+                    <tr>
+                        <td style="font-weight: 600; padding: 8px;">3. Fees Paid:</td>
+                        <td><input type="text" id="lta_feespaid" style="width: 50px;"> (YES/NO)</td>
+                        <td style="font-weight: 600;">Receipt No: <input type="text" id="lta_receipt" style="width: 40%;"> Date: <input type="date" id="lta_feesdate" style="width: 30%;"> Amount: $<input type="text" id="lta_feesamount" style="width: 20%;"></td>
+                    </tr>
+                </table>
+
+                <table style="margin-bottom: 20px;">
+                    <tr>
+                        <td style="font-weight: 600; padding: 8px;">4. Recommendation by authorized CSO</td>
+                    </tr>
+                    <tr>
+                        <td>Name of CSO: <input type="text" id="lta_csoname" style="width: 40%;"> District: <input type="text" id="lta_district" style="width: 40%;"></td>
+                    </tr>
+                </table>
+
+                <table style="margin-bottom: 20px;">
+                    <tr>
+                        <td style="font-weight: 600; padding: 8px;">Recommendation by Supervisor PSV</td>
+                    </tr>
+                    <tr>
+                        <td>Name of S/T: <input type="text" id="lta_spvname" style="width: 40%;"> Date: <input type="date" id="lta_spvdate" style="width: 40%;"></td>
+                    </tr>
+                </table>
+
+                <table style="margin-bottom: 20px;">
+                    <tr>
+                        <td style="font-weight: 600; padding: 8px;">5. Advertisement information</td>
+                    </tr>
+                    <tr>
+                        <td>Name of daily: <input type="text" id="lta_daily" style="width: 40%;"> Date of Advertisement: <input type="date" id="lta_advdate" style="width: 40%;"></td>
+                    </tr>
+                </table>
+
+                <table style="margin-bottom: 20px;">
+                    <tr>
+                        <td style="font-weight: 600; padding: 8px; background: #e8e8e8;">6. APPROVAL AUTHORITY ( )</td>
+                    </tr>
+                    <tr>
+                        <td style="height: 80px; vertical-align: top; padding: 8px;">
+                            <strong>Signature:</strong> ____________________<br>
+                            <strong>Name & Title:</strong> ______________________________<br>
+                            <strong>Date:</strong> ___________________________<br><br>
+                            <strong>Note – Reasons for approval or refusal to be specified:</strong><br><textarea id="lta_approvalreasons" style="width: 100%; height: 50px;"></textarea>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="button-group">
+                <button class="btn-primary" onclick="populateFormFromData()">Auto-fill Form from Applicant Data</button>
+                <button class="btn-success" onclick="window.print()">Print Complete Application (PDF)</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Set default date to today
+        document.getElementById('appDate').valueAsDate = new Date();
+        document.getElementById('meetingDate').valueAsDate = new Date();
+
+        // Tab switching
+        function switchTab(tabName) {
+            const tabContents = document.querySelectorAll('.tab-content');
+            const tabButtons = document.querySelectorAll('.tab-button');
+            
+            tabContents.forEach(tab => tab.classList.remove('active'));
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Load example data
+        function autofillExampleData() {
+            document.getElementById('appDate').value = '2025-06-15';
+            document.getElementById('driverFullName').value = 'Leone Tokonibau Nasila';
+            document.getElementById('driverLastName').value = 'Nasila';
+            document.getElementById('vehicleMakeModel').value = 'Toyota Hiace';
+            document.getElementById('baseLocation').value = 'Nabalebale Market Square';
+            document.getElementById('mataqaliName').value = 'Narikoso';
+            document.getElementById('chiefName').value = 'Isimeli Narikoso';
+            document.getElementById('chiefPhone').value = '+679 8812345';
+            document.getElementById('tkName').value = 'Atonio Batavotavo';
+            document.getElementById('meetingDate').value = '2025-05-20';
+            alert('Example data loaded. Proceed to other tabs to generate documents.');
+        }
+
+        // Clear all data
+        function clearAllData() {
+            if (confirm('Clear all data? This cannot be undone.')) {
+                document.querySelectorAll('input, textarea, select').forEach(field => {
+                    if (field.type !== 'checkbox' && field.type !== 'radio') {
+                        field.value = '';
+                    }
+                });
+                document.getElementById('appDate').valueAsDate = new Date();
+                document.getElementById('meetingDate').valueAsDate = new Date();
+            }
+        }
+
+        // Generate letters with live data binding
+        function generateLetters() {
+            const data = {
+                date: formatDate(document.getElementById('appDate').value),
+                driverFull: document.getElementById('driverFullName').value,
+                driverLast: document.getElementById('driverLastName').value,
+                vehicle: document.getElementById('vehicleMakeModel').value,
+                baseLocation: document.getElementById('baseLocation').value,
+                mataqali: document.getElementById('mataqaliName').value,
+                chiefName: document.getElementById('chiefName').value,
+                chiefPhone: document.getElementById('chiefPhone').value,
+                tkName: document.getElementById('tkName').value,
+                meetingDate: formatDate(document.getElementById('meetingDate').value)
+            };
+
+            // Letter A
+            document.getElementById('letterDate1').textContent = data.date;
+            document.getElementById('letter1Chief').textContent = data.chiefName;
+            document.getElementById('letter1Mataqali').textContent = data.mataqali;
+            document.getElementById('letter1DriverFull').textContent = data.driverFull;
+            document.getElementById('letter1BaseLocation').textContent = data.baseLocation;
+            document.getElementById('letter1Mataqali2').textContent = data.mataqali;
+            document.getElementById('letter1DriverLast').textContent = data.driverLast;
+            document.getElementById('letter1Mataqali3').textContent = data.mataqali;
+            document.getElementById('letter1DriverLast2').textContent = data.driverLast;
+            document.getElementById('letter1Vehicle').textContent = data.vehicle;
+            document.getElementById('letter1BaseLocation2').textContent = data.baseLocation;
+            document.getElementById('letter1Mataqali4').textContent = data.mataqali;
+            document.getElementById('letter1DriverLast3').textContent = data.driverLast;
+            document.getElementById('letter1Phone').textContent = data.chiefPhone;
+            document.getElementById('letter1ChiefSig').textContent = data.chiefName;
+            document.getElementById('letter1MataqaliSig').textContent = data.mataqali;
+
+            // Letter B
+            document.getElementById('letterDate2').textContent = data.date;
+            document.getElementById('letter2DriverFull').textContent = data.driverFull;
+            document.getElementById('letter2DriverFull2').textContent = data.driverFull;
+            document.getElementById('letter2TK').textContent = data.tkName;
+            document.getElementById('letter2MeetingDate').textContent = data.meetingDate;
+            document.getElementById('letter2DriverLast').textContent = data.driverLast;
+            document.getElementById('letter2BaseLocation').textContent = data.baseLocation;
+            document.getElementById('letter2DriverLast2').textContent = data.driverLast;
+            document.getElementById('letter2BaseLocation2').textContent = data.baseLocation;
+            document.getElementById('letter2DriverLast3').textContent = data.driverLast;
+            document.getElementById('letter2TKSig').textContent = data.tkName;
+
+            // Letter C
+            document.getElementById('letterDate3').textContent = data.date;
+            document.getElementById('letter3DriverFull').textContent = data.driverFull;
+            document.getElementById('letter3DriverFull2').textContent = data.driverFull;
+            document.getElementById('letter3DriverLast').textContent = data.driverLast;
+            document.getElementById('letter3BaseLocation').textContent = data.baseLocation;
+            document.getElementById('letter3TKSig').textContent = data.tkName;
+
+            // Reveal all letterhead and signature images
+            document.querySelectorAll('.hidden-until-generated').forEach(function(el) {
+                el.classList.remove('hidden-until-generated');
+            });
+
+            alert('Letters updated with current data. Ready to print.');
+        }
+
+        // Populate LTA form from applicant data
+        function populateFormFromData() {
+            const driverFull = document.getElementById('driverFullName').value;
+            const driverLast = document.getElementById('driverLastName').value;
+            const vehicle = document.getElementById('vehicleMakeModel').value;
+
+            // Parse names
+            const names = driverFull.split(' ');
+            const firstName = names[names.length - 1];
+            const lastName = driverLast;
+            const middleNames = names.slice(0, -1).join(' ');
+
+            document.getElementById('lta_firstname').value = firstName;
+            document.getElementById('lta_middlename').value = middleNames;
+            document.getElementById('lta_surname').value = lastName;
+            document.getElementById('lta_declname').value = driverFull;
+
+            // Vehicle details
+            const vehicleParts = vehicle.split(' ');
+            document.getElementById('lta_make').value = vehicleParts[0] || '';
+            document.getElementById('lta_model').value = vehicleParts.slice(1).join(' ') || '';
+
+            alert('Form auto-filled with basic data. Complete remaining fields manually, then print.');
+        }
+
+        // Check income threshold
+        function checkIncome() {
+            const income = parseFloat(document.getElementById('lta_income').value) || 0;
+            const alert = document.getElementById('incomeAlert');
+            
+            if (income > 30000) {
+                alert.style.display = 'block';
+                alert.style.background = '#f8d7da';
+                alert.style.borderColor = '#f5c6cb';
+                alert.innerHTML = '<strong>⚠ ERROR:</strong> Annual household income exceeds $30,000 threshold. Your application will NOT be eligible.';
+            } else if (income > 0) {
+                alert.style.display = 'block';
+                alert.style.background = '#d4edda';
+                alert.style.borderColor = '#28a745';
+                alert.innerHTML = '<strong>✓ Eligible:</strong> Your income is within the $30,000 threshold.';
+            }
+        }
+
+        // Utility: Format date
+        function formatDate(dateStr) {
+            if (!dateStr) return '';
+            const date = new Date(dateStr);
+            const months = ['January', 'February', 'March', 'April', 'May', 'June', 
+                          'July', 'August', 'September', 'October', 'November', 'December'];
+            return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
+        }
+
+        // Print specific tab
+        function printTab(tabName) {
+            window.print();
+        }
+
+        // Initialize on load
+        window.addEventListener('load', function() {
+            console.log('LT Permit Generator loaded successfully.');
+        });
+    </script>
+</body>
+</html>

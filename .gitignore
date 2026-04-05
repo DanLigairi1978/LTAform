@@ -1,0 +1,43 @@
+# OS Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Editor/IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.sublime-project
+.sublime-workspace
+*.code-workspace
+
+# Node (if ever needed for future tooling)
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+
+# Build/Dist
+dist/
+build/
+*.zip
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.bak
+_backup/
+archive/
+
+# Credentials (NEVER commit API keys, secrets, etc.)
+.env
+.env.local
+secrets.json
