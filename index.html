@@ -469,9 +469,51 @@
                 display: block !important;
             }
 
-            /* Only print the letters tab content, hide others */
-            #data, #checklists, #form {
+            /* Hide data-entry and checklists tabs during print; show letters + LTA form */
+            #data, #checklists {
                 display: none !important;
+            }
+
+            /* LTA form: remove all interactive styling from fields */
+            .lta-form input[type="text"],
+            .lta-form input[type="date"],
+            .lta-form input[type="number"],
+            .lta-form textarea {
+                display: none !important;
+            }
+
+            /* Proxy divs injected by beforeprint JS — show full text */
+            .print-proxy {
+                display: block !important;
+                border: none;
+                border-bottom: 1px solid #888;
+                min-height: 1.4em;
+                padding: 2px 0;
+                font-family: 'Calibri', 'Segoe UI', sans-serif;
+                font-size: 11pt;
+                line-height: 1.5;
+                white-space: pre-wrap;
+                word-break: break-word;
+                background: transparent;
+                margin-bottom: 2px;
+            }
+
+            /* Underline-only style for inline inputs (short fields) */
+            .print-proxy-inline {
+                display: inline-block !important;
+                border-bottom: 1px solid #888;
+                min-width: 80px;
+                padding: 0 4px;
+                font-family: 'Calibri', 'Segoe UI', sans-serif;
+                font-size: 11pt;
+                line-height: 1.5;
+                white-space: pre-wrap;
+                background: transparent;
+            }
+
+            /* Income alert: keep visible if showing eligibility status */
+            .alert-warning {
+                display: block !important;
             }
         }
 
@@ -1334,6 +1376,30 @@
         function printTab(tabName) {
             window.print();
         }
+
+        // ── Print proxy system ──────────────────────────────────────────────
+        // Before printing: swap every LTA form input/textarea with a <div>
+        // that shows its full text content, so no field clips in the PDF.
+        window.addEventListener('beforeprint', function () {
+            document.querySelectorAll('.lta-form input, .lta-form textarea').forEach(function (el) {
+                // Determine if the field is inline (short fixed-width)
+                var isInline = el.style.width && parseInt(el.style.width) < 60;
+                var proxy = document.createElement('div');
+                proxy.className = isInline ? 'print-proxy-inline' : 'print-proxy';
+                // Show the value, or a non-breaking space so the underline still renders
+                proxy.textContent = el.value || '\u00a0';
+                proxy.dataset.proxyFor = el.id;
+                el.parentNode.insertBefore(proxy, el);
+            });
+        });
+
+        // After printing: remove all proxy divs to restore the live form
+        window.addEventListener('afterprint', function () {
+            document.querySelectorAll('.print-proxy, .print-proxy-inline').forEach(function (proxy) {
+                proxy.remove();
+            });
+        });
+        // ────────────────────────────────────────────────────────────────────
 
         // Initialize on load
         window.addEventListener('load', function() {
